@@ -5485,21 +5485,21 @@ size_t size;
   {
    typedef unsigned (*fptr)_((void));
    fptr *q = table;
-   unsigned i;
+   UV i;
    if ((*q[0])() != size)
     {
-     croak("%s table is %u not %u",name,(*q[0])(),(unsigned) size);
+     croak("%s table is %"UVuf" not %"UVuf,name,(UV)(*q[0])(),size);
     }
    sv_setiv(FindTkVarName(name,GV_ADD|GV_ADDMULTI),PTR2IV(table));
    if (size % sizeof(fptr))
     {
-     warn("%s is strange size %d",name,size);
+     warn("%s is strange size %"UVuf,name,size);
     }
    size /= sizeof(void *);
    for (i=0; i < size; i++)
     {
      if (!q[i])
-      warn("%s slot %d is NULL",name,i);
+      warn("%s slot %"UVuf" is NULL",name,i);
     }
   }
  else

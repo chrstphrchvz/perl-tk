@@ -378,17 +378,17 @@ install_vtab(pTHX_ char *name, void *table, size_t size)
   {
    typedef int (*fptr)_((void));
    fptr *q = table;
-   unsigned i;
+   UV i;
    sv_setiv(FindVarName(aTHX_ name,GV_ADD|GV_ADDMULTI),PTR2IV(table));
    if (size % sizeof(fptr))
     {
-     warn("%s is strange size %d",name,size);
+     warn("%s is strange size %"UVuf,name,size);
     }
    size /= sizeof(void *);
    for (i=0; i < size; i++)
     {
      if (!q[i])
-      warn("%s slot %d is NULL",name,i);
+      warn("%s slot %"UVuf" is NULL",name,i);
     }
   }
  else
